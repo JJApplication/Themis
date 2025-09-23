@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package port_service;
+
+option go_package = "github.com/JJApplication/Themis/proto";
+
+// 端口服务定义
+service PortService {
+  // 获取一个随机端口
+  rpc GetRandomPort(GetRandomPortRequest) returns (GetRandomPortResponse);
+  
+  // 获取N个随机端口
+  rpc GetRandomPorts(GetRandomPortsRequest) returns (GetRandomPortsResponse);
+  
+  // 获取某个APP的端口
+  rpc GetAppPort(GetAppPortRequest) returns (GetAppPortResponse);
+  
+  // 设置某个APP的端口
+  rpc SetAppPort(SetAppPortRequest) returns (SetAppPortResponse);
+  
+  // 快速设置APP端口（存在则返回，不存在则生成随机端口）
+  rpc QuickSetAppPort(QuickSetAppPortRequest) returns (QuickSetAppPortResponse);
+  
+  // 删除某个服务的端口信息
+  rpc DeleteAppPort(DeleteAppPortRequest) returns (DeleteAppPortResponse);
+}
+
+// 获取随机端口请求
+message GetRandomPortRequest {
+}
+
+// 获取随机端口响应
+message GetRandomPortResponse {
+  int32 port = 1;     // 端口号
+  string error = 2;   // 错误信息
+}
+
+// 获取N个随机端口请求
+message GetRandomPortsRequest {
+  int32 count = 1;    // 需要获取的端口数量
+}
+
+// 获取N个随机端口响应
+message GetRandomPortsResponse {
+  repeated int32 ports = 1;  // 端口数组
+  string error = 2;          // 错误信息
+}
+
+// 获取APP端口请求
+message GetAppPortRequest {
+  string app_name = 1;  // APP名称
+}
+
+// 获取APP端口响应
+message GetAppPortResponse {
+  int32 port = 1;     // 端口号
+  string error = 2;   // 错误信息
+}
+
+// 设置APP端口请求
+message SetAppPortRequest {
+  string app_name = 1;  // APP名称
+  int32 port = 2;       // 端口号
+}
+
+// 设置APP端口响应
+message SetAppPortResponse {
+  string error = 1;  // 错误信息
+}
+
+// 快速设置APP端口请求
+message QuickSetAppPortRequest {
+  string app_name = 1;  // APP名称
+}
+
+// 快速设置APP端口响应
+message QuickSetAppPortResponse {
+  int32 port = 1;     // 端口号
+  string error = 2;   // 错误信息
+}
+
+// 删除APP端口请求
+message DeleteAppPortRequest {
+  string app_name = 1;  // APP名称
+}
+
+// 删除APP端口响应
+message DeleteAppPortResponse {
+  string error = 1;  // 错误信息
+}

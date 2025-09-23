@@ -1,0 +1,16 @@
+{
+  "server": {
+    "listen_type": "unix",
+    "unix_socket": "/var/run/Themis.sock",
+    "host": "localhost",
+    "port": 9090
+  },
+  "port": {
+    "min_port": 10000,
+    "max_port": 20000
+  },
+  "storage": {
+    "data_file": "./data/ports.json",
+    "sync_interval": 60
+  }
+}
