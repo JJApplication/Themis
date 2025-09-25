@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package port_service;
 
-option go_package = "github.com/JJApplication/Themis/proto";
+option go_package = "./proto";
 
 // 端口服务定义
 service PortService {

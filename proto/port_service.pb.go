@@ -7,12 +7,11 @@
 package proto
 
 import (
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
-
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -635,7 +634,7 @@ const file_proto_port_service_proto_rawDesc = "" +
 	"\n" +
 	"SetAppPort\x12\x1f.port_service.SetAppPortRequest\x1a .port_service.SetAppPortResponse\x12^\n" +
 	"\x0fQuickSetAppPort\x12$.port_service.QuickSetAppPortRequest\x1a%.port_service.QuickSetAppPortResponse\x12X\n" +
-	"\rDeleteAppPort\x12\".port_service.DeleteAppPortRequest\x1a#.port_service.DeleteAppPortResponseB\x1cZ\x1agithub.com/JJApplication/Themis/protob\x06proto3"
+	"\rDeleteAppPort\x12\".port_service.DeleteAppPortRequest\x1a#.port_service.DeleteAppPortResponseB\tZ\a./protob\x06proto3"
 
 var (
 	file_proto_port_service_proto_rawDescOnce sync.Once
