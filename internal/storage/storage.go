@@ -21,9 +21,9 @@ type AppPortStorage struct {
 
 // PortData 端口数据结构（用于JSON序列化）
 type PortData struct {
-	AppPorts  map[string]int `json:"app_ports"`  // APP端口映射
-	Timestamp int64          `json:"timestamp"`  // 时间戳
-	Version   string         `json:"version"`    // 版本信息
+	AppPorts  map[string]int `json:"app_ports"` // APP端口映射
+	Timestamp int64          `json:"timestamp"` // 时间戳
+	Version   string         `json:"version"`   // 版本信息
 }
 
 // NewAppPortStorage 创建新的APP端口存储管理器

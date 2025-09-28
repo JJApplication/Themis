@@ -593,6 +593,104 @@ func (x *DeleteAppPortResponse) GetError() string {
 	return ""
 }
 
+// 检查端口是否可用请求
+type IsPortAvailableRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Port          int32                  `protobuf:"varint,1,opt,name=port,proto3" json:"port,omitempty"` // 要检查的端口号
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IsPortAvailableRequest) Reset() {
+	*x = IsPortAvailableRequest{}
+	mi := &file_proto_port_service_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IsPortAvailableRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IsPortAvailableRequest) ProtoMessage() {}
+
+func (x *IsPortAvailableRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_port_service_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IsPortAvailableRequest.ProtoReflect.Descriptor instead.
+func (*IsPortAvailableRequest) Descriptor() ([]byte, []int) {
+	return file_proto_port_service_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *IsPortAvailableRequest) GetPort() int32 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
+// 检查端口是否可用响应
+type IsPortAvailableResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Available     bool                   `protobuf:"varint,1,opt,name=available,proto3" json:"available,omitempty"` // 端口是否可用
+	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`          // 错误信息
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IsPortAvailableResponse) Reset() {
+	*x = IsPortAvailableResponse{}
+	mi := &file_proto_port_service_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IsPortAvailableResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IsPortAvailableResponse) ProtoMessage() {}
+
+func (x *IsPortAvailableResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_port_service_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IsPortAvailableResponse.ProtoReflect.Descriptor instead.
+func (*IsPortAvailableResponse) Descriptor() ([]byte, []int) {
+	return file_proto_port_service_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *IsPortAvailableResponse) GetAvailable() bool {
+	if x != nil {
+		return x.Available
+	}
+	return false
+}
+
+func (x *IsPortAvailableResponse) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
 var File_proto_port_service_proto protoreflect.FileDescriptor
 
 const file_proto_port_service_proto_rawDesc = "" +
@@ -625,7 +723,12 @@ const file_proto_port_service_proto_rawDesc = "" +
 	"\x14DeleteAppPortRequest\x12\x19\n" +
 	"\bapp_name\x18\x01 \x01(\tR\aappName\"-\n" +
 	"\x15DeleteAppPortResponse\x12\x14\n" +
-	"\x05error\x18\x01 \x01(\tR\x05error2\xa0\x04\n" +
+	"\x05error\x18\x01 \x01(\tR\x05error\",\n" +
+	"\x16IsPortAvailableRequest\x12\x12\n" +
+	"\x04port\x18\x01 \x01(\x05R\x04port\"M\n" +
+	"\x17IsPortAvailableResponse\x12\x1c\n" +
+	"\tavailable\x18\x01 \x01(\bR\tavailable\x12\x14\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error2\x80\x05\n" +
 	"\vPortService\x12X\n" +
 	"\rGetRandomPort\x12\".port_service.GetRandomPortRequest\x1a#.port_service.GetRandomPortResponse\x12[\n" +
 	"\x0eGetRandomPorts\x12#.port_service.GetRandomPortsRequest\x1a$.port_service.GetRandomPortsResponse\x12O\n" +
@@ -634,7 +737,8 @@ const file_proto_port_service_proto_rawDesc = "" +
 	"\n" +
 	"SetAppPort\x12\x1f.port_service.SetAppPortRequest\x1a .port_service.SetAppPortResponse\x12^\n" +
 	"\x0fQuickSetAppPort\x12$.port_service.QuickSetAppPortRequest\x1a%.port_service.QuickSetAppPortResponse\x12X\n" +
-	"\rDeleteAppPort\x12\".port_service.DeleteAppPortRequest\x1a#.port_service.DeleteAppPortResponseB\tZ\a./protob\x06proto3"
+	"\rDeleteAppPort\x12\".port_service.DeleteAppPortRequest\x1a#.port_service.DeleteAppPortResponse\x12^\n" +
+	"\x0fIsPortAvailable\x12$.port_service.IsPortAvailableRequest\x1a%.port_service.IsPortAvailableResponseB\tZ\a./protob\x06proto3"
 
 var (
 	file_proto_port_service_proto_rawDescOnce sync.Once
@@ -648,7 +752,7 @@ func file_proto_port_service_proto_rawDescGZIP() []byte {
 	return file_proto_port_service_proto_rawDescData
 }
 
-var file_proto_port_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_proto_port_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_proto_port_service_proto_goTypes = []any{
 	(*GetRandomPortRequest)(nil),    // 0: port_service.GetRandomPortRequest
 	(*GetRandomPortResponse)(nil),   // 1: port_service.GetRandomPortResponse
@@ -662,6 +766,8 @@ var file_proto_port_service_proto_goTypes = []any{
 	(*QuickSetAppPortResponse)(nil), // 9: port_service.QuickSetAppPortResponse
 	(*DeleteAppPortRequest)(nil),    // 10: port_service.DeleteAppPortRequest
 	(*DeleteAppPortResponse)(nil),   // 11: port_service.DeleteAppPortResponse
+	(*IsPortAvailableRequest)(nil),  // 12: port_service.IsPortAvailableRequest
+	(*IsPortAvailableResponse)(nil), // 13: port_service.IsPortAvailableResponse
 }
 var file_proto_port_service_proto_depIdxs = []int32{
 	0,  // 0: port_service.PortService.GetRandomPort:input_type -> port_service.GetRandomPortRequest
@@ -670,14 +776,16 @@ var file_proto_port_service_proto_depIdxs = []int32{
 	6,  // 3: port_service.PortService.SetAppPort:input_type -> port_service.SetAppPortRequest
 	8,  // 4: port_service.PortService.QuickSetAppPort:input_type -> port_service.QuickSetAppPortRequest
 	10, // 5: port_service.PortService.DeleteAppPort:input_type -> port_service.DeleteAppPortRequest
-	1,  // 6: port_service.PortService.GetRandomPort:output_type -> port_service.GetRandomPortResponse
-	3,  // 7: port_service.PortService.GetRandomPorts:output_type -> port_service.GetRandomPortsResponse
-	5,  // 8: port_service.PortService.GetAppPort:output_type -> port_service.GetAppPortResponse
-	7,  // 9: port_service.PortService.SetAppPort:output_type -> port_service.SetAppPortResponse
-	9,  // 10: port_service.PortService.QuickSetAppPort:output_type -> port_service.QuickSetAppPortResponse
-	11, // 11: port_service.PortService.DeleteAppPort:output_type -> port_service.DeleteAppPortResponse
-	6,  // [6:12] is the sub-list for method output_type
-	0,  // [0:6] is the sub-list for method input_type
+	12, // 6: port_service.PortService.IsPortAvailable:input_type -> port_service.IsPortAvailableRequest
+	1,  // 7: port_service.PortService.GetRandomPort:output_type -> port_service.GetRandomPortResponse
+	3,  // 8: port_service.PortService.GetRandomPorts:output_type -> port_service.GetRandomPortsResponse
+	5,  // 9: port_service.PortService.GetAppPort:output_type -> port_service.GetAppPortResponse
+	7,  // 10: port_service.PortService.SetAppPort:output_type -> port_service.SetAppPortResponse
+	9,  // 11: port_service.PortService.QuickSetAppPort:output_type -> port_service.QuickSetAppPortResponse
+	11, // 12: port_service.PortService.DeleteAppPort:output_type -> port_service.DeleteAppPortResponse
+	13, // 13: port_service.PortService.IsPortAvailable:output_type -> port_service.IsPortAvailableResponse
+	7,  // [7:14] is the sub-list for method output_type
+	0,  // [0:7] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -694,7 +802,7 @@ func file_proto_port_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_port_service_proto_rawDesc), len(file_proto_port_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

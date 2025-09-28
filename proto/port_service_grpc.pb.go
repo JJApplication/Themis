@@ -25,6 +25,7 @@ const (
 	PortService_SetAppPort_FullMethodName      = "/port_service.PortService/SetAppPort"
 	PortService_QuickSetAppPort_FullMethodName = "/port_service.PortService/QuickSetAppPort"
 	PortService_DeleteAppPort_FullMethodName   = "/port_service.PortService/DeleteAppPort"
+	PortService_IsPortAvailable_FullMethodName = "/port_service.PortService/IsPortAvailable"
 )
 
 // PortServiceClient is the client API for PortService service.
@@ -45,6 +46,8 @@ type PortServiceClient interface {
 	QuickSetAppPort(ctx context.Context, in *QuickSetAppPortRequest, opts ...grpc.CallOption) (*QuickSetAppPortResponse, error)
 	// 删除某个服务的端口信息
 	DeleteAppPort(ctx context.Context, in *DeleteAppPortRequest, opts ...grpc.CallOption) (*DeleteAppPortResponse, error)
+	// 检查端口是否可用
+	IsPortAvailable(ctx context.Context, in *IsPortAvailableRequest, opts ...grpc.CallOption) (*IsPortAvailableResponse, error)
 }
 
 type portServiceClient struct {
@@ -115,6 +118,16 @@ func (c *portServiceClient) DeleteAppPort(ctx context.Context, in *DeleteAppPort
 	return out, nil
 }
 
+func (c *portServiceClient) IsPortAvailable(ctx context.Context, in *IsPortAvailableRequest, opts ...grpc.CallOption) (*IsPortAvailableResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(IsPortAvailableResponse)
+	err := c.cc.Invoke(ctx, PortService_IsPortAvailable_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PortServiceServer is the server API for PortService service.
 // All implementations must embed UnimplementedPortServiceServer
 // for forward compatibility.
@@ -133,6 +146,8 @@ type PortServiceServer interface {
 	QuickSetAppPort(context.Context, *QuickSetAppPortRequest) (*QuickSetAppPortResponse, error)
 	// 删除某个服务的端口信息
 	DeleteAppPort(context.Context, *DeleteAppPortRequest) (*DeleteAppPortResponse, error)
+	// 检查端口是否可用
+	IsPortAvailable(context.Context, *IsPortAvailableRequest) (*IsPortAvailableResponse, error)
 	mustEmbedUnimplementedPortServiceServer()
 }
 
@@ -160,6 +175,9 @@ func (UnimplementedPortServiceServer) QuickSetAppPort(context.Context, *QuickSet
 }
 func (UnimplementedPortServiceServer) DeleteAppPort(context.Context, *DeleteAppPortRequest) (*DeleteAppPortResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAppPort not implemented")
+}
+func (UnimplementedPortServiceServer) IsPortAvailable(context.Context, *IsPortAvailableRequest) (*IsPortAvailableResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsPortAvailable not implemented")
 }
 func (UnimplementedPortServiceServer) mustEmbedUnimplementedPortServiceServer() {}
 func (UnimplementedPortServiceServer) testEmbeddedByValue()                     {}
@@ -290,6 +308,24 @@ func _PortService_DeleteAppPort_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PortService_IsPortAvailable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsPortAvailableRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PortServiceServer).IsPortAvailable(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PortService_IsPortAvailable_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PortServiceServer).IsPortAvailable(ctx, req.(*IsPortAvailableRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PortService_ServiceDesc is the grpc.ServiceDesc for PortService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -320,6 +356,10 @@ var PortService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAppPort",
 			Handler:    _PortService_DeleteAppPort_Handler,
+		},
+		{
+			MethodName: "IsPortAvailable",
+			Handler:    _PortService_IsPortAvailable_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

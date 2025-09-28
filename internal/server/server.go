@@ -219,12 +219,18 @@ func (s *PortServer) QuickSetAppPort(ctx context.Context, req *pb.QuickSetAppPor
 
 // DeleteAppPort 删除某个服务的端口信息
 func (s *PortServer) DeleteAppPort(ctx context.Context, req *pb.DeleteAppPortRequest) (*pb.DeleteAppPortResponse, error) {
-	// 获取端口以便释放
+	if req.AppName == "" {
+		return &pb.DeleteAppPortResponse{
+			Error: "APP名称不能为空",
+		}, nil
+	}
+
+		// 获取端口以便释放
 	if port, err := s.storage.GetAppPort(req.AppName); err == nil {
 		s.portManager.ReleasePort(port)
 	}
 
-	// 删除APP端口
+	// 删除APP端口信息
 	err := s.storage.DeleteAppPort(req.AppName)
 	if err != nil {
 		return &pb.DeleteAppPortResponse{
@@ -234,5 +240,23 @@ func (s *PortServer) DeleteAppPort(ctx context.Context, req *pb.DeleteAppPortReq
 
 	return &pb.DeleteAppPortResponse{
 		Error: "",
+	}, nil
+}
+
+// IsPortAvailable 检查端口是否可用
+func (s *PortServer) IsPortAvailable(ctx context.Context, req *pb.IsPortAvailableRequest) (*pb.IsPortAvailableResponse, error) {
+	if req.Port <= 0 || req.Port > 65535 {
+		return &pb.IsPortAvailableResponse{
+			Available: false,
+			Error:     "端口号必须在1-65535范围内",
+		}, nil
+	}
+
+	// 调用端口管理器的IsPortAvailable方法检查端口可用性
+	available := s.portManager.IsPortAvailable(int(req.Port))
+
+	return &pb.IsPortAvailableResponse{
+		Available: available,
+		Error:     "",
 	}, nil
 }

@@ -23,6 +23,9 @@ service PortService {
   
   // 删除某个服务的端口信息
   rpc DeleteAppPort(DeleteAppPortRequest) returns (DeleteAppPortResponse);
+  
+  // 检查端口是否可用
+  rpc IsPortAvailable(IsPortAvailableRequest) returns (IsPortAvailableResponse);
 }
 
 // 获取随机端口请求
@@ -87,4 +90,15 @@ message DeleteAppPortRequest {
 // 删除APP端口响应
 message DeleteAppPortResponse {
   string error = 1;  // 错误信息
+}
+
+// 检查端口是否可用请求
+message IsPortAvailableRequest {
+  int32 port = 1;  // 要检查的端口号
+}
+
+// 检查端口是否可用响应
+message IsPortAvailableResponse {
+  bool available = 1;  // 端口是否可用
+  string error = 2;    // 错误信息
 }
